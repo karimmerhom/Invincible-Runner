@@ -1,0 +1,82 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class PlayerMovement : MonoBehaviour
+{
+    private float moveX;
+    private float moveY;
+    private float moveZ;
+    public float speed;
+    public float speedMovement;
+    private string lane = "mid";
+    private Rigidbody rb;
+ 
+   
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
+    // Update is called once per frame
+    void FixedUpdate() 
+    {
+       //b.AddForce(new Vector3(moveX, 0.0f, moveY)*speed);
+       transform.Translate(new Vector3(0.0f, 0.0f, 2.0f) * speed);
+
+    }
+    public void Jump (InputAction.CallbackContext context)
+
+    {
+        if (context.performed)
+        {
+            rb.AddForce(new Vector3(0.0f,10.0f, 0.0f) * speed);
+        }
+    }
+
+    public void Left (InputAction.CallbackContext context)
+
+    {
+        if (context.performed)
+        {
+            if (lane == "mid")
+            {
+                lane = "left";
+                transform.Translate(new Vector3(-6.0f, 0.0f, 0.0f) * speedMovement);
+                print(lane);
+            }
+            if (lane == "right")
+            {
+                lane = "mid";
+                transform.Translate(new Vector3(-6.0f, 0.0f, 0.0f) * speedMovement);
+                print(lane);
+            }
+        }
+    }
+    public void Right(InputAction.CallbackContext context)
+
+    {
+        if (context.performed)
+        {
+            if (lane == "mid")
+            {
+
+                lane = "right";
+                transform.Translate(new Vector3(6.0f, 0.0f, 0.0f) * speedMovement);
+                print(lane);
+            }
+            if (lane == "left")
+            {
+
+                lane = "mid";
+                transform.Translate(new Vector3(6.0f, 0.0f, 0.0f) * speedMovement);
+                print(lane);
+            }
+        }
+    }
+
+
+
+
+}
